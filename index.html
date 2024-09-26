@@ -1,12 +1,25 @@
  <!DOCTYPE html>
 <html>
 <title>Leaders</title>
+<head>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit">
+    // if using synchronous loading, will be called once the DOM is ready
+    turnstile.ready(function () {
+      turnstile.render("#example-container", {
+        sitekey: "0x4AAAAAAAkwv-pXsT8kighB",
+        callback: function (token) {
+          console.log(`Challenge Success ${token}`);
+        },
+      });
+    });
+</script>
+</head>
 <body>
 <h1>Example Leadership Page</h1>
 <p>&nbsp;</p>
 <h2>Our Leaders:</h2>
 <p>&nbsp;</p>
-<figure class="table">
+<figure class="table" id="example-container">
     <table>
         <thead>
             <tr>
