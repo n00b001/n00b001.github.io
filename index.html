@@ -26,7 +26,7 @@ function javascriptCallback(token) {
     console.debug('javascriptCallback called with token:', token);
 
     // Set up the API URL and send the token as a query parameter
-    const apiUrl = `https://api.xf.gl/get-leaders?response=${token}`;
+    const apiUrl = `https://us-central1-leaders-436809.cloudfunctions.net/get-leaders?response=${token}`;
 
     // Fetch the data from the API
     fetch(apiUrl)
