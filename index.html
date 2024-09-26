@@ -2,24 +2,17 @@
 <html>
 <title>Leaders</title>
 <head>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit">
-    // if using synchronous loading, will be called once the DOM is ready
-    turnstile.ready(function () {
-      turnstile.render("#example-container", {
-        sitekey: "0x4AAAAAAAkwv-pXsT8kighB",
-        callback: function (token) {
-          console.log(`Challenge Success ${token}`);
-        },
-      });
-    });
-</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/css/bootstrap.min.css" integrity="sha512-siwe/oXMhSjGCwLn+scraPOWrJxHlUgMBMZXdPe2Tnk3I0x3ESCoLz7WZ5NTH6SZrywMY+PB1cjyqJ5jAluCOg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css" integrity="sha512-5PV92qsds/16vyYIJo3T/As4m2d8b6oWYfoqV+vtizRB6KhF1F9kYzWzQmsO6T3z3QG2Xdhrx7FQ+5R1LiQdUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=_turnstileCb" defer></script>    
+
 </head>
 <body>
 <h1>Example Leadership Page</h1>
 <p>&nbsp;</p>
 <h2>Our Leaders:</h2>
 <p>&nbsp;</p>
-<figure class="table" id="example-container">
+<figure class="table" id="myWidget">
     <table>
         <thead>
             <tr>
@@ -97,5 +90,17 @@
         </tbody>
     </table>
 </figure>
+<script>
+// This function is called when the Turnstile script is loaded and ready to be used.
+// The function name matches the "onload=..." parameter.
+function _turnstileCb() {
+    console.debug('_turnstileCb called');
+
+    turnstile.render('#myWidget', {
+      sitekey: '0x4AAAAAAAkwv-pXsT8kighB',
+      theme: 'light',
+    });
+}
+</script>
 </body>
 </html> 
