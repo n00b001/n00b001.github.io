@@ -23,18 +23,17 @@
 // This function is called when the Turnstile script is loaded and ready to be used.
 // The function name matches the "onload=..." parameter.
 function javascriptCallback(token) {
-    console.debug('javascriptCallback called with token:', token);
+    console.debug('javascriptCallback called:');
 
     // Set up the API URL and send the token as a query parameter
     const apiUrl = `https://leadership-func-537485940704.us-central1.run.app?response=${token}`;
 
     // Fetch the data from the API
     fetch(apiUrl)
-      // .then(response => response.json()) // Assuming the API returns JSON data
+      .then(response => response.text())  // Convert the response to text
       .then(data => {
-          // Assuming 'data.content' contains the HTML or text to be placed in the div
           const tableDiv = document.getElementById("table1");
-          tableDiv.innerHTML = data;  // Set the div's content
+          tableDiv.innerHTML = data;  // Set the div's content to the API's HTML
           tableDiv.style.display = "block";   // Make the div visible
       })
       .catch(error => {
