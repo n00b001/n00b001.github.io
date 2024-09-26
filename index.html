@@ -5,14 +5,40 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/css/bootstrap.min.css" integrity="sha512-siwe/oXMhSjGCwLn+scraPOWrJxHlUgMBMZXdPe2Tnk3I0x3ESCoLz7WZ5NTH6SZrywMY+PB1cjyqJ5jAluCOg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css" integrity="sha512-5PV92qsds/16vyYIJo3T/As4m2d8b6oWYfoqV+vtizRB6KhF1F9kYzWzQmsO6T3z3QG2Xdhrx7FQ+5R1LiQdUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  
+  <style>
+    /* Style the busy spinner */
+    .spinner {
+      display: none; /* Initially hidden */
+      width: 3rem;
+      height: 3rem;
+      border: 0.4rem solid rgba(0, 0, 0, 0.1);
+      border-top: 0.4rem solid #000;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
+
 <body>
 <h1>Example Leadership Page</h1>
 <p>&nbsp;</p>
 <h2>Our Leaders:</h2>
 <p>&nbsp;</p>
+
+<!-- Busy Spinner -->
+<div class="spinner" id="spinner"></div>
+
 <figure class="table" id="table1" style="display: none;">
 </figure>
+
+<!-- Turnstile Captcha -->
 <div
   class="cf-turnstile"
   data-sitekey="0x4AAAAAAAkwv-pXsT8kighB"
@@ -25,6 +51,10 @@
 function javascriptCallback(token) {
     console.debug('javascriptCallback called:');
 
+    // Show spinner when the request starts
+    const spinner = document.getElementById('spinner');
+    spinner.style.display = 'block'; // Show the spinner
+
     // Set up the API URL and send the token as a query parameter
     const apiUrl = `https://leadership-func-537485940704.us-central1.run.app?response=${token}`;
 
@@ -35,6 +65,10 @@ function javascriptCallback(token) {
           const tableDiv = document.getElementById("table1");
           tableDiv.innerHTML = data;  // Set the div's content to the API's HTML
           tableDiv.style.display = "block";   // Make the div visible
+      })
+      .finally(() => {
+          // Hide the spinner after the data is loaded
+          spinner.style.display = 'none';
       })
       .catch(error => {
           console.error('Error fetching API:', error);
